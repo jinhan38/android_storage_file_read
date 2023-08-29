@@ -1,6 +1,5 @@
 package com.example.android_storage_file_read
 
-import android.util.Log
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -58,6 +57,7 @@ object ReadDeviceFile {
         var line: String?
         while (reader.readLine().also { line = it } != null) {
             textBuilder.append(line)
+
             textBuilder.append("\n")
         }
         return textBuilder

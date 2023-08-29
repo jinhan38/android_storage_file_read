@@ -1,7 +1,6 @@
 package com.example.android_storage_file_read
 
 import android.Manifest.permission.READ_EXTERNAL_STORAGE
-import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "onCreate: result : $result")
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "read error",e)
+                Log.e(TAG, "read error", e)
             }
         }
 
@@ -53,20 +52,15 @@ class MainActivity : AppCompatActivity() {
     private fun checkStoragePermissions() {
 
         try {
-            val permission1 = ContextCompat.checkSelfPermission(
-                this,
-                WRITE_EXTERNAL_STORAGE
-            )
-
-            val permission2 = ContextCompat.checkSelfPermission(
+            val permission = ContextCompat.checkSelfPermission(
                 this,
                 READ_EXTERNAL_STORAGE
             )
 
-            if (permission1 == PackageManager.PERMISSION_DENIED || permission2 == PackageManager.PERMISSION_DENIED) {
+            if (permission == PackageManager.PERMISSION_DENIED) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     requestPermissions(
-                        arrayOf(WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE),
+                        arrayOf(READ_EXTERNAL_STORAGE),
                         1000
                     )
                 }
@@ -78,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // 권한 체크 이후로직
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grandResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grandResults)
         if (requestCode == 1000) {
